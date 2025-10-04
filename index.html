@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лендинг предсказательницы</title>
+    <link rel="preload" href="PlaypenSans-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="pattern (5).svg" as="image">
+    <link rel="preload" href="header_img.svg" as="image">
+    <link rel="preload" href="hero.png" as="image">
+    <link rel="preload" href="service.jpg" as="image">
+    <link rel="preload" href="Instagram.png" as="image">
+    <link rel="preload" href="WhatsApp.png" as="image">
+    <style>
+        @font-face {
+            font-family: 'PlaypenSans';
+            src: url('PlaypenSans-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'PlaypenSans', sans-serif;
+            background-color: #0d0d0f;
+            color: #eaeaea;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("pattern (5).svg");
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 20px;
+            color: #fff;
+            max-width: 420px;
+        }
+
+        header .intro {
+            color: #ccc;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        header .text-block {
+            margin-left: 30px;
+            z-index: 1;
+        }
+
+        header img {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            max-width: 170px;
+            height: auto;
+            opacity: 1;
+        }
+
+        .hero {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .services {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .services h2 {
+            margin-bottom: 40px;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            color: #fff;
+        }
+
+        .services p.lead {
+            margin: 0 auto 40px auto;
+            color: #aaa;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #141419;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #4a4aff;
+            box-shadow: 0 0 20px rgba(74, 74, 255, 0.2);
+            transition: transform 0.2s ease;
+            max-width: 380px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-size: large;
+            color: #b8b8ff;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+            color: #aaa;
+            flex-grow: 1;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .card button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4a4aff, #6a6aff);
+            color: #fff;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+            font-family: 'PlaypenSans', sans-serif;
+        }
+
+        .card button:hover {
+            background: linear-gradient(135deg, #6a6aff, #4a4aff);
+            transform: scale(1.05);
+        }
+
+        .order-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .order-section p {
+            margin: 0 auto 20px auto;
+            max-width: 300px;
+            color: #ccc;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            text-align: center;
+        }
+
+        .order-btn, .order-service-btn {
+            font-family: 'PlaypenSans', sans-serif;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4a4aff, #6a6aff);
+            color: #fff;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .order-btn:hover, .order-service-btn:hover {
+            background: linear-gradient(135deg, #6a6aff, #4a4aff);
+            transform: scale(1.05);
+        }
+
+        .advantages {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .advantages h2 {
+            margin-bottom: 30px;
+            margin-top: -80px;
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            color: #fff;
+        }
+
+        .advantages ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .advantages li {
+            background: #141419;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4a4aff;
+            border-right: 4px solid #4a4aff;
+            color: #ccc;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        footer {
+            background: #000;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            color: #888;
+        }
+
+        footer .icons-placeholder {
+            margin: 10px 0;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer .icons-placeholder div {
+            width: 30px;
+            height: 30px;
+            background: #222;
+            border-radius: 50%;
+            border: 1px solid #444;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 60%);
+            backdrop-filter: blur(8px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .modal-info h3 {
+            margin: 0;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .modal-info p {
+            margin-bottom: 10px;
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+        }
+
+        .modal-info .order-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4a4aff, #6a6aff);
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        #contactModal .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 420px;
+            padding: 30px 25px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #1a1a24, #111118);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            color: #fff;
+            box-sizing: border-box;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(74,74,255,0.3);
+            transform: translateY(-30px);
+            opacity: 0;
+            animation: modalFadeIn 0.3s forwards ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #contactModal h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #b8b8ff;
+            text-align: center;
+        }
+
+        #contactModal .social-icons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #contactModal .social-icons img {
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 8px;
+            background: #222;
+            border: 1px solid #4a4aff;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        #contactModal .social-icons img:hover {
+            transform: scale(1.15) rotate(5deg);
+            background: linear-gradient(135deg, #4a4aff, #6a6aff);
+        }
+
+        #contactModal .modal-close:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.1);
+        }
+
+        #infoModal .modal-content {
+            position: relative;
+            width: 85%;
+            max-width: 380px;
+            padding: 25px 20px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #1a1a24, #111118);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(74,74,255,0.3);
+            text-align: center;
+            transform: translateY(-30px);
+            opacity: 0;
+            animation: modalFadeIn 0.3s forwards ease-out;
+        }
+
+        #infoModal h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            color: #b8b8ff;
+        }
+
+        #infoModal p {
+            font-size: 1rem;
+            margin: 0;
+            color: #ddd;
+        }
+
+        #infoModal .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.3rem;
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                position: relative;
+                padding: 20px 10px;
+                text-align: center;
+            }
+
+            header .intro {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            header img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 60%;
+                opacity: 0.08;
+            }
+
+            header .text-block {
+                position: relative;
+                z-index: 1;
+                max-width: 90%;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            header h1 {
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 12px;
+            }
+
+            .modal-info {
+                bottom: 0;
+                padding: 15px;
+                gap: 8px;
+                font-size: 0.9rem;
+                background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3) 40%, transparent 100%);
+                backdrop-filter: blur(8px);
+            }
+
+            .modal-info h3 {
+                font-size: 1rem;
+            }
+
+            .modal-info p {
+                font-size: 0.85rem;
+            }
+
+            .modal-info .order-btn {
+                font-size: 0.95rem;
+                padding: 10px 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .icons-placeholder .circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #444;
+            padding: 0;
+        }
+
+        .icons-placeholder .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        footer img:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+            transition: 0.25s ease;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="text-block">
+        <h1>Добро пожаловать к вашей предсказательнице</h1>
+        <p class="intro">
+            Я — ясновидящая, чья душа горит преданностью к древним знаниям и мистическим практикам. Моя миссия — провести вас через завесу неизвестного, используя силу интуиции и духовной связи. Я работаю с людьми разных вероисповеданий, уважая их уникальные пути и традиции. Я не даю гарантий — я дарю результаты, которые открывают новые горизонты вашей судьбы!
+        </p>
+    </div>
+    <img src="header_img.svg" alt="SVG Image">
+</header>
+
+<section class="hero">
+    <img src="hero.png" alt="Hero" class="hero-img">
+</section>
+
+<section class="services container">
+    <p class="lead">С юных лет я ощущаю гармонию с высшими силами, изучаю тайны вселенной и помогаю людям найти свет в их жизненном пути. Моя работа — это искусство, основанное на глубоком понимании энергий и символов. Я с радостью разделю с вами свои знания и помогу обрести внутреннее равновесие.</p>
+    <h2>Мои услуги</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Будущее отношений</h3>
+            <p>Узнайте, что ждёт ваши отношения: брак, развод или возможная измена. Я анализирую атмосферу в семье и предсказываю будущие события. Получите практичные советы, как гармонизировать отношения и укрепить семейные узы.</p>
+            <button>Подробнее</button>
+        </div>
+        <div class="card">
+            <h3>Энергетическое состояние</h3>
+            <p>Оцените своё энергетическое состояние и определите, что «тянет силы». Я проведу диагностику и предложу эффективные советы для восстановления внутреннего баланса и энергии.</p>
+            <button>Подробнее</button>
+        </div>
+        <div class="card">
+            <h3>Предсказание. Ясновидение</h3>
+            <p>Откройте завесу будущего с помощью моих дарований. Я предсказываю ключевые события вашей жизни, даю ясные ответы на ваши вопросы и направляю вас через интуитивное видение.</p>
+            <button>Подробнее</button>
+        </div>
+        <div class="card">
+            <h3>Защитные амулеты</h3>
+            <p>Создам для вас индивидуальный защитный амулет, который оберегает от негатива и привлекает удачу. Каждый амулет заряжен с особым намерением для вашей безопасности и благополучия.</p>
+            <button>Подробнее</button>
+        </div>
+    </div>
+</section>
+
+<section class="advantages container">
+    <h2>Почему выбирают меня?</h2>
+    <ul>
+        <li>Индивидуальный подход к каждому клиенту</li>
+        <li>Опыт и знания в сфере эзотерики</li>
+        <li>Поддержка и советы на каждом этапе</li>
+    </ul>
+    <div class="order-section">
+        <p>Жду вас на пути к открытию вашего истинного предназначения! ✨ Да пребудет с вами свет и мудрость!</p>
+        <button class="order-btn">Сделать заказ</button>
+    </div>
+</section>
+
+<footer>
+    <p>Контакты для связи:</p>
+    <div class="icons-placeholder">
+        <a href="https://www.instagram.com/online_gadanie_ludmila" target="_blank" class="circle">
+        <img src="Instagram.png" alt="Instagram Icon"/>
+    </a>
+        <a href="https://wa.me/+79684890553" target="_blank" class="circle">
+            <img src="WhatsApp.png" alt="Whatsapp Icon"/>
+        </a>
+    </div>
+    <p>Номер телефона: +7 968 489 05-53</p>
+</footer>
+
+<div class="modal" id="serviceModal">
+    <div class="modal-content">
+        <img src="service.jpg" alt="Услуга" class="modal-img">
+        <div class="modal-info">
+            <h3 id="modalTitle">Название услуги</h3>
+            <p id="modalDesc">Описание услуги</p>
+            <button class="order-service-btn">Заказать</button>
+        </div>
+        <button class="modal-close" id="modalCloseBtn">&times;</button>
+    </div>
+</div>
+
+<div class="modal" id="contactModal">
+    <div class="modal-content">
+        <button class="modal-close" id="contactCloseBtn">&times;</button>
+        <h3>Связаться со мной</h3>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/online_gadanie_ludmila" target="_blank" class="circle">
+                <img src="Instagram.png" alt="Instagram Icon"/>
+            <a href="https://wa.me/+79684890553" target="_blank">
+                <img src="WhatsApp.png" alt="WhatsApp">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="infoModal">
+    <div class="modal-content">
+        <button class="modal-close" id="infoCloseBtn">&times;</button>
+        <h3 id="infoTitle">Контакт</h3>
+        <p id="infoText">Здесь будет информация</p>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById("serviceModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const detailButtons = document.querySelectorAll(".card button");
+    const contactModal = document.getElementById("contactModal");
+    const contactCloseBtn = document.getElementById("contactCloseBtn");
+    const orderBtn = document.querySelector(".order-btn");
+
+    function preloadImages() {
+        const images = [
+            'pattern (5).svg',
+            'header_img.svg',
+            'hero.png',
+            'service.jpg',
+            'Instagram.png',
+            'WhatsApp.png'
+        ];
+
+        let loadedCount = 0;
+        const totalImages = images.length;
+
+        images.forEach(src => {
+            const img = new Image();
+            img.onload = img.onerror = () => {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    document.fonts.ready.then(() => {
+                        document.body.classList.add('loaded');
+                    });
+                }
+            };
+            img.src = src;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', preloadImages);
+
+    detailButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const card = btn.closest(".card");
+            modalTitle.textContent = card.querySelector("h3").textContent;
+            modalDesc.textContent = card.querySelector("p").textContent;
+            modal.style.display = "flex";
+
+            const modalOrderBtn = modal.querySelector(".order-service-btn");
+            modalOrderBtn.onclick = () => {
+                modal.style.display = "none";
+                contactModal.style.display = "flex";
+            };
+        });
+    });
+
+    modalCloseBtn.addEventListener("click", () => modal.style.display = "none");
+    modal.addEventListener("click", e => {
+        if(e.target === modal) modal.style.display = "none";
+    });
+
+    contactCloseBtn.addEventListener("click", () => contactModal.style.display = "none");
+    contactModal.addEventListener("click", e => {
+        if(e.target === contactModal) contactModal.style.display = "none";
+    });
+
+    orderBtn.addEventListener("click", () => {
+        contactModal.style.display = "flex";
+    });
+</script>
+
+</body>
+</html>
